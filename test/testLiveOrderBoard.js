@@ -40,23 +40,20 @@ describe("Placing and cancelling orders", function() {
         liveOrderBoard.placeOrder('BUY', 'user4', 'Ethereum', 2, 5007);
         liveOrderBoard.placeOrder('BUY', 'user4', 'Ethereum', 2, 5008);
       
-        //console.log('allOrders', fourthOrder);
         const result = liveOrderBoard.liveOrderDisplay();
-        console.log('result', result);
         it("merges orders with the same price together", function() {
           expect(result).to.eql(
             {
               resultSell: [
-                { totalPrice: 3, pricePerCoin: 3 },
                 { totalPrice: 5, pricePerCoin: 5 },
                 { totalPrice: 100, pricePerCoin: 50 },
-                { totalPrice: 250, pricePerCoin: 125 },
-                { totalPrice: 300, pricePerCoin: 300 },
+                { totalPrice: 375, pricePerCoin: 125 },
                 { totalPrice: 500, pricePerCoin: 500 },
                 { totalPrice: 900, pricePerCoin: 900 },
                 { totalPrice: 1111, pricePerCoin: 1111 },
                 { totalPrice: 3000, pricePerCoin: 3000 },
-                { totalPrice: 3050, pricePerCoin: 3050 }
+                { totalPrice: 3050, pricePerCoin: 3050 },
+                { totalPrice: 4000, pricePerCoin: 4000 }
               ],
               resultBuy: [
                 { totalPrice: 5008, pricePerCoin: 5008 },
@@ -74,10 +71,10 @@ describe("Placing and cancelling orders", function() {
           );
         });
         it("shows SELL orders sorted as lowest prices displayed first", function() {
-          expect(result.resultSell[0].totalPrice).to.eql(3);
-          expect(result.resultSell[1].totalPrice).to.eql(5);
-          expect(result.resultSell[2].totalPrice).to.eql(100);
-          expect(result.resultSell[3].totalPrice).to.eql(250);
+          expect(result.resultSell[0].totalPrice).to.eql(5);
+          expect(result.resultSell[1].totalPrice).to.eql(100);
+          expect(result.resultSell[2].totalPrice).to.eql(375);
+          expect(result.resultSell[3].totalPrice).to.eql(500);
         });
         it("shows BUY orders sorted as highest prices displayed first", function() {
           expect(result.resultBuy[0].totalPrice).to.eql(5008);
@@ -86,21 +83,18 @@ describe("Placing and cancelling orders", function() {
         it("shows up to 10 SELL orders", function() {
           expect(result.resultSell).to.eql(
             [
-              { totalPrice: 3, pricePerCoin: 3 },
-              { totalPrice: 5, pricePerCoin: 5 },
-              { totalPrice: 100, pricePerCoin: 50 },
-              { totalPrice: 250, pricePerCoin: 125 },
-              { totalPrice: 300, pricePerCoin: 300 },
-              { totalPrice: 500, pricePerCoin: 500 },
-              { totalPrice: 900, pricePerCoin: 900 },
-              { totalPrice: 1111, pricePerCoin: 1111 },
-              { totalPrice: 3000, pricePerCoin: 3000 },
-              { totalPrice: 3050, pricePerCoin: 3050 }
-            ]
+                { totalPrice: 5, pricePerCoin: 5 },
+                { totalPrice: 100, pricePerCoin: 50 },
+                { totalPrice: 375, pricePerCoin: 125 },
+                { totalPrice: 500, pricePerCoin: 500 },
+                { totalPrice: 900, pricePerCoin: 900 },
+                { totalPrice: 1111, pricePerCoin: 1111 },
+                { totalPrice: 3000, pricePerCoin: 3000 },
+                { totalPrice: 3050, pricePerCoin: 3050 },
+                { totalPrice: 4000, pricePerCoin: 4000 }
+              ]
           );
         });
-      
-        console.log('result', result);
         it("shows up to 10 BUY orders", function() {
           expect(result.resultBuy).to.eql(
             [
@@ -141,215 +135,111 @@ describe("Placing and cancelling orders", function() {
             liveOrderBoard.cancelRegisteredOrder('BUY', 'user4', 'Ethereum', 2, 5002);
             liveOrderBoard.cancelRegisteredOrder('BUY', 'user4', 'Ethereum', 2, 5003);
             const cancelOrder = liveOrderBoard.cancelRegisteredOrder('BUY', 'user4', 'Ethereum', 2, 5004);
+
+            console.log('cancelOrder', cancelOrder);
     
             expect(cancelOrder).to.eql(
-              [
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5006
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5007
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5008
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user1',
-                  coinType: 'Ethereum',
-                  orderQuantity: 5,
-                  pricePerCoin: 125
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user2',
-                  coinType: 'Ethereum',
-                  orderQuantity: 3,
-                  pricePerCoin: 5
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user2',
-                  coinType: 'Ethereum',
-                  orderQuantity: 3,
-                  pricePerCoin: 125
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user2',
-                  coinType: 'Ethereum',
-                  orderQuantity: 3,
-                  pricePerCoin: 125
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user2',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 125
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user2',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 50
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user2',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 50
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user1',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 125
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user3',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 50
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 50
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user8',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 3000
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user9',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 3050
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user10',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 4000
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user8',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 500
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user8',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 900
-                },
-                {
-                  orderType: 'SELL',
-                  userId: 'user8',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 1111
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5000
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5001
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5002
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5003
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5004
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5005
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5006
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5007
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user4',
-                  coinType: 'Ethereum',
-                  orderQuantity: 2,
-                  pricePerCoin: 5008
-                },
-                {
-                  orderType: 'BUY',
-                  userId: 'user1',
-                  coinType: 'Ethereum',
-                  orderQuantity: 5,
-                  pricePerCoin: 125
-                }
-              ]);
+                [
+                  {
+                    orderType: 'BUY',
+                    userId: 'user4',
+                    coinType: 'Ethereum',
+                    orderQuantity: 2,
+                    pricePerCoin: 5004
+                  },
+                  {
+                    orderType: 'BUY',
+                    userId: 'user4',
+                    coinType: 'Ethereum',
+                    orderQuantity: 2,
+                    pricePerCoin: 5005
+                  },
+                  {
+                    orderType: 'BUY',
+                    userId: 'user4',
+                    coinType: 'Ethereum',
+                    orderQuantity: 2,
+                    pricePerCoin: 5006
+                  },
+                  {
+                    orderType: 'BUY',
+                    userId: 'user4',
+                    coinType: 'Ethereum',
+                    orderQuantity: 2,
+                    pricePerCoin: 5007
+                  },
+                  {
+                    orderType: 'BUY',
+                    userId: 'user4',
+                    coinType: 'Ethereum',
+                    orderQuantity: 2,
+                    pricePerCoin: 5008
+                  },
+                  {
+                    orderType: 'BUY',
+                    userId: 'user1',
+                    coinType: 'Ethereum',
+                    orderQuantity: 5,
+                    pricePerCoin: 125
+                  }
+                ]);
         });
-    
-        it("throws error when order doesn't exist", function() {});
+    });
+
+    describe("placing an order", function () {
+        it("places an order", function () {
+          const order = liveOrderBoard.placeOrder('SELL', 'user1', 'Ethereum', 5, 44);
+          expect(order).to.eql([
+            {
+              orderType: 'BUY',
+              userId: 'user4',
+              coinType: 'Ethereum',
+              orderQuantity: 2,
+              pricePerCoin: 5004
+            },
+            {
+              orderType: 'BUY',
+              userId: 'user4',
+              coinType: 'Ethereum',
+              orderQuantity: 2,
+              pricePerCoin: 5005
+            },
+            {
+              orderType: 'BUY',
+              userId: 'user4',
+              coinType: 'Ethereum',
+              orderQuantity: 2,
+              pricePerCoin: 5006
+            },
+            {
+              orderType: 'BUY',
+              userId: 'user4',
+              coinType: 'Ethereum',
+              orderQuantity: 2,
+              pricePerCoin: 5007
+            },
+            {
+              orderType: 'BUY',
+              userId: 'user4',
+              coinType: 'Ethereum',
+              orderQuantity: 2,
+              pricePerCoin: 5008
+            },
+            {
+              orderType: 'BUY',
+              userId: 'user1',
+              coinType: 'Ethereum',
+              orderQuantity: 5,
+              pricePerCoin: 125
+            },
+            {
+              orderType: 'SELL',
+              userId: 'user1',
+              coinType: 'Ethereum',
+              orderQuantity: 5,
+              pricePerCoin: 44
+            }
+          ]);
+        })
     });
 });

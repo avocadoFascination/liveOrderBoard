@@ -164,38 +164,7 @@ const liveOrderDisplay = () => {
     return { resultSell, resultBuy } ;
 };
 
-placeOrder('SELL', 'user1', 'Ethereum', 5, 125);
-placeOrder('SELL', 'user2', 'Ethereum', 3, 5);
-placeOrder('SELL', 'user2', 'Ethereum', 3, 125);
-placeOrder('BUY', 'user2', 'Ethereum', 3, 125);
-placeOrder('SELL', 'user2', 'Ethereum', 2, 125);
-placeOrder('SELL', 'user2', 'Ethereum', 2, 50);
-placeOrder('SELL', 'user2', 'Ethereum', 2, 50);
-placeOrder('BUY', 'user1', 'Ethereum', 2, 125);
-placeOrder('BUY', 'user3', 'Ethereum', 2, 50);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 50);
-placeOrder('SELL', 'user8', 'Ethereum', 2, 3);
-
-cancelRegisteredOrder('SELL', 'user8', 'Ethereum', 2, 3);
-
-placeOrder('SELL', 'user8', 'Ethereum', 2, 3000);
-placeOrder('SELL', 'user9', 'Ethereum', 2, 3050);
-placeOrder('SELL', 'user10', 'Ethereum', 2, 4000);
-placeOrder('SELL', 'user8', 'Ethereum', 2, 300);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5000);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5001);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5002);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5003);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5004);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5005);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5006);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5007);
-placeOrder('BUY', 'user4', 'Ethereum', 2, 5008);
-
-liveOrderDisplay();
-
 module.exports = {
-    LiveOrderBoard,
     placeOrder,
     cancelRegisteredOrder,
     liveOrderDisplay

@@ -1,5 +1,5 @@
 {
-  "name": "live-order-board",
+  "name": "@emuller02/live-order-board",
   "version": "0.0.1",
   "description": "Displays a \"SELL\" and \"BUY\" live order board",
   "main": "src/index.js",
