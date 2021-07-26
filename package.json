@@ -1,0 +1,17 @@
+{
+  "name": "live-order-board",
+  "version": "0.0.1",
+  "description": "Displays a \"SELL\" and \"BUY\" live order board",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Eleonora Muller",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.4"
+  }
+}
